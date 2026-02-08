@@ -2,9 +2,10 @@ name: CI
 permissions: {}
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+#  pull_request:
+#    branches:
+#      - main
 
 jobs:
   lint-test:
@@ -33,6 +34,9 @@ jobs:
         with:
           # renovate: github=helm/chart-testing
           version: v3.14.0
+
+      - name: Setup Helm Docs
+        uses: gabe565/setup-helm-docs-action@d5c35bdc9133cfbea3b671acadf50a29029e87c2 #v1.0.4
 
       - name: Run chart-testing (list-changed)
         id: list-changed
@@ -126,6 +130,7 @@ jobs:
           VALIDATE_RENOVATE: true # does not support newest renovate config
           VALIDATE_SHELL_SHFMT: true
           VALIDATE_XML: true
+
   validate-pr:
     name: Validate PR Metadata
     runs-on: ubuntu-24.04

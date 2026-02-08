@@ -2,6 +2,7 @@
 additional-commands:
   - sh -ec "if [ -f '{{ .Path }}/ci/lint.sh' ]; then shellcheck '{{ .Path }}/ci/lint.sh'; bash '{{ .Path }}/ci/lint.sh'; fi"
   - helm unittest --strict --file 'unittests/**/*.yaml' {{ .Path }}
+  - helm-docs -c {{ .Path }}
 chart-dirs:
   - charts
 chart-repos:
